@@ -1,0 +1,40 @@
+﻿.h-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+
+
+  & .title {
+    position: relative;
+  }
+
+  & .title h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  & .title p {
+    position: absolute;
+    bottom: -1rem;
+    right: 14px;
+    font-size: 0.75rem;
+
+    & a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & .nav-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+    }
+  }
+}
