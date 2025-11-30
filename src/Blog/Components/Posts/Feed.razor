@@ -1,0 +1,41 @@
+﻿@namespace Blog.Components
+
+@inject IPostService postService
+
+@if (Posts is null)
+{
+	return;
+}
+else if (Posts.Count == 0)
+{
+	<section class="feed">
+		<p>Looks like writers block. Check back later.</p>
+	</section>
+}
+else
+{
+	<section class="feed" role="feed">
+		@foreach (var post in Posts)
+		{
+		<article>
+			<NavLink href="@GetLink(post)">
+				<h3 title="@post.Title">@post.Title</h3>
+				<p class="date">@post.PublishedAt.ToString("MMMM d, yyyy")</p>
+				<p class="lead" title="@post.Lead">@post.Lead</p>
+			</NavLink>
+		</article>
+		}
+	</section>
+}
+
+
+@code {
+	private List<Post>? Posts;
+
+	private string GetLink(Post post) => $"/{post.Slug}";
+
+	protected override async Task OnInitializedAsync()
+	{
+		Posts = await postService.GetPostsAsync();
+	}
+}

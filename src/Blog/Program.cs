@@ -1,9 +1,11 @@
-using Blog.Components;
-
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.ConfigureOptions<FilePostServiceOptionsSetup>();
+builder.Services.AddSingleton<IFileSystem, FileSystem>();
+builder.Services.AddScoped<IPostService, FilePostService>();
+
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+   .AddInteractiveServerComponents();
 
 var app = builder.Build();
 
@@ -20,6 +22,6 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+   .AddInteractiveServerRenderMode();
 
 app.Run();
