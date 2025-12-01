@@ -1,6 +1,6 @@
 ﻿namespace Blog.Posts;
 
-internal record Post
+public record Post
 {
    public string Title { get; init; } = string.Empty;
    public string Lead { get; init; } = string.Empty;
@@ -10,7 +10,7 @@ internal record Post
    public string OpenGraphImage { get; init; } = string.Empty;
 }
 
-internal record PostWithContent : Post
+public record PostWithContent : Post
 {
    public string Content { get; init; } = string.Empty;
 }

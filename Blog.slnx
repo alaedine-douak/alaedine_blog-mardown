@@ -1,9 +1,13 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="global.json" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Blog/Blog.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Blog.Tests/Blog.Tests.csproj" Id="19db0748-881f-4cb9-8209-d92c3ce319f7" />
   </Folder>
 </Solution>

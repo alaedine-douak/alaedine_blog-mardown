@@ -2,7 +2,7 @@
 
 namespace Blog.Posts;
 
-internal class FilePostService(
+public class FilePostService(
    IOptions<FilePostServiceOptions> options,
    IFileSystem fileSystem,
    ILogger<FilePostService> logger) 
@@ -18,8 +18,8 @@ internal class FilePostService(
    private static readonly MarkdownPipeline MarkdownPipeline = 
       new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
-   private const string MetaFence = "meta";
-   private const string IndexFile = "index.md";
+   private const string META_FENCE = "meta";
+   private const string INDEX_FILE = "index.md";
 
    private readonly FilePostServiceOptions _options = options.Value;
    private readonly IFileSystem _fileSystem = fileSystem;
@@ -44,7 +44,7 @@ internal class FilePostService(
       {
          try
          {
-            var indexFilePath = _fileSystem.Path.Combine(subdirectory, IndexFile);
+            var indexFilePath = _fileSystem.Path.Combine(subdirectory, INDEX_FILE);
 
             if (_fileSystem.File.Exists(indexFilePath) is false)
             {
@@ -84,7 +84,7 @@ internal class FilePostService(
    {
       try
       {
-         var postPath = _fileSystem.Path.Combine(_options.PostsDirectory, slug, IndexFile);
+         var postPath = _fileSystem.Path.Combine(_options.PostsDirectory, slug, INDEX_FILE);
 
          if (_fileSystem.File.Exists(postPath) is false)
          {
@@ -129,7 +129,7 @@ internal class FilePostService(
          .Where(x =>
             x is FencedCodeBlock fencedCodeBlock &&
             fencedCodeBlock.Arguments is not null &&
-            fencedCodeBlock.Arguments.Contains(MetaFence))
+            fencedCodeBlock.Arguments.Contains(META_FENCE))
          .Select(x => x as FencedCodeBlock)
          .FirstOrDefault();
 
