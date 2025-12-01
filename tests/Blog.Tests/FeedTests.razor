@@ -1,0 +1,41 @@
+@inherits Bunit.BunitContext
+
+@code 
+{
+	private Mock<IPostService> _postServiceMock = new();
+
+	[Fact]
+	public void Feed_WhenRenderedAndNoPosts_ItShouldRenderNoPostsMessage()
+	{
+		Services.AddSingleton(_postServiceMock.Object);
+
+		_postServiceMock
+			.Setup(x => x.GetPostsAsync())
+			.ReturnsAsync(new List<Post>());
+
+		var cut = Render(@<Feed />);
+
+		cut.Find("p").MarkupMatches("<p>Looks like writers block. Check back later.</p>");
+	}
+
+	[Fact]
+	public void Feed_WhenRenderedAndContainPosts_ItShouldRenderPosts()
+	{
+		List<Post> posts = [
+			new Post { Title = "Post 1" },
+			new Post { Title = "Post 2" }
+		];
+
+		Services.AddSingleton(_postServiceMock.Object);
+
+		_postServiceMock
+			.Setup(x => x.GetPostsAsync())
+			.ReturnsAsync(posts);
+
+		var cut = Render(@<Feed/>);
+
+		var articles = cut.FindAll("article");
+
+		Assert.Equal(2, articles.Count);
+	}
+}

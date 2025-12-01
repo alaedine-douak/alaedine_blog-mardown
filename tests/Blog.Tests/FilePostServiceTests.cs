@@ -1,14 +1,4 @@
-﻿using System.IO.Abstractions;
-
-using Microsoft.Extensions.Options;
-
-using Blog.Posts;
-
-using Moq;
-using Microsoft.Extensions.Logging;
-using Xunit;
-
-namespace Blog.Tests;
+﻿namespace Blog.Tests;
 
 public class FilePostServiceTests
 {
