@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bunit" Version="2.1.1" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <!--<PackageReference Include="xunit.analyzers" Version="1.26.0" />-->
     <PackageReference Include="xunit.v3" Version="3.2.1" />

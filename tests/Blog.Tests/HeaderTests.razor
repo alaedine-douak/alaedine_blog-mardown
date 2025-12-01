@@ -1,0 +1,38 @@
+@using Bunit
+@using Xunit
+@using Blog.Components.Layout
+
+@inherits Bunit.BunitContext
+
+@code 
+{
+   [Fact]
+   public void Header_WhenRendered_ItShouldContainSiteTitle()
+   {
+      var cut = Render(@<Header/>);
+
+		var heading = cut.Find("h1");
+
+		heading.MarkupMatches(@<h1>Daily Blogs</h1>);
+	}
+
+	[Fact]
+	public void Header_WhenRendered_ItShouldContainAuthorInfo()
+	{
+		var cut = Render(@<Header />);
+
+		var author = cut.Find(".nav-container > span");
+
+		author.MarkupMatches(@<span>by</span>);
+	}
+
+	[Fact]
+	public void Header_WhenRendered_ItShouldContainAuthorImage()
+	{
+		var cut = Render(@<Header />);
+
+		var avatar = cut.Find("img[alt='DOUAK Alaeddine']");
+
+		Assert.NotNull(avatar);
+	}
+}
