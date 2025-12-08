@@ -102,10 +102,7 @@ public class FilePostService(
 
          var post = JsonSerializer.Deserialize<PostWithContent>(metaContent, JsonSerializerOptions);
 
-         if (post is null || post.IsPublished is false)
-         {
-            return null;
-         }
+         if (post is null or { IsPublished: false }) return null;
 
          var postWithContent = post with
          {
@@ -127,9 +124,8 @@ public class FilePostService(
       var markDoc = Markdown.Parse(postText, MarkdownPipeline);
       var postMetadata = markDoc
          .Where(x =>
-            x is FencedCodeBlock fencedCodeBlock &&
-            fencedCodeBlock.Arguments is not null &&
-            fencedCodeBlock.Arguments.Contains(META_FENCE))
+            x is FencedCodeBlock { Arguments: not null } fcb &&
+            fcb.Arguments.Contains(META_FENCE))
          .Select(x => x as FencedCodeBlock)
          .FirstOrDefault();
 

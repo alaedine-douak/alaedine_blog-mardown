@@ -1,0 +1,43 @@
+﻿@page "/{slug}"
+
+@inject IPostService postService
+@inject NavigationManager navigateManager
+
+
+@if (BlogPost is null)
+{
+	return;
+}
+else
+{
+	<article>
+		<header>
+			<h2>@BlogPost.Title</h2>
+			<date>@BlogPost.PublishedAt.ToString("MMMM d, yyyy")</date>
+		</header>
+		<section>
+			@((MarkupString)BlogPost.Content)
+		</section>
+	</article>
+}
+
+
+@code {
+	[Parameter]
+	public string Slug { get; set; } = string.Empty;
+
+	private PostWithContent? BlogPost;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var post = await postService.GetPostAsync(Slug);
+
+		if (post is null)
+		{
+			navigateManager.NavigateTo("not-found");
+			return;
+		}
+
+		BlogPost = post;
+	}
+}
